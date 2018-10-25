@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head xmlns:th="http://www.thymeleaf.org" >
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/vendors/upload.min.css}" />
+    
+    <title>Register</title>
+        <style>
+        #profile{
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+        }
+        .hidden{
+            display: none;
+        }
+
+        .input-hidden {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .choose-profile-img{
+            width: 150px;
+            height: 150px;
+        }
+
+    </style>
+</head>
+<body class="bg-light">
+
+
+    <div class="container py-2 mt-sm-2 col-sm-10 col-md-8 col-lg-7">
+ 
+        <form method="POST" th:object="${usuario}">
+            <!-- MENSAGENS DE VALIDAÇÃO -->
+            <div  th:if="${not #strings.isEmpty(mensagem)}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span th:text="${mensagem}"></span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--./ MENSAGENS DE VALIDAÇÃO -->
+
+            <div class="row mb-3">
+                <div class="col-sm-12"  th:attr="data-url-fotos=@{/}">
+                    <input type="hidden" th:field="*{foto}"  />
+                    <input type="hidden" th:field="*{contentType}" />
+                    <input id="upload"  class="custom-file-input input-hidden" type="file" multiple="false" accept=".jpg,.jpeg,.png" />
+                    <div class="choose-profile-img bg-dark">
+                        <img id="profile" th:src="@{/images/default-profile.png}" onclick="upload.click()" />
+                    </div>
+                    <div class="">
+                        <a href="javascript:upload.click();">Escolha ...</a>
+                    </div>
+                </div> 
+            </div>
+            
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="email" class="control-label">Email</label>
+                    <input id="email" type="email" class="form-control" th:field="*{email}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('email')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="senha" class="control-label">Senha</label>
+                    <input id="senha" type="password" class="form-control" th:field="*{senha}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('senha')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="firstName" class="control-label">First Name</label>
+                    <input id="firstName" type="text" class="form-control" th:field="*{firstName}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('firstName')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div>
+            
+                <div class="form-group col-md-4">
+                    <label for="lastName" class="control-label">Last Name</label>
+                    <input id="lastName" type="text" class="form-control" th:field="*{lastName}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('lastName')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="telefone" class="control-label">Telefone</label>
+                    <input id="telefone" type="text" class="form-control  phone_with_ddd" th:field="*{telefone}" th:errorclass="is-invalid"/>
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('telefone')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="row">
+            	<div class="col-md-4 align-self-center" style="margin-top: 14px">
+	            	<div class="btn-group btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-info active">
+							<input type="radio" name="tipoUsuario" value="cliente" autocomplete="off" checked> Cliente
+						</label>
+						<label class="btn btn-info">
+							<input type="radio" name="tipoUsuario" value="funcionario" autocomplete="off"> Funcionario
+						</label>
+					</div>
+				</div>
+                <div class="form-group col-sm-8">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" class="form-control" th:field="*{categoria}" th:errorclass="is-invalid" disabled="disabled">
+                        <option value="">Todas as categorias</option>
+                        <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}">categoria</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('categoria')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+            
+                <div class="form-group col-sm-4">
+                    <label>Tipo Pessoa</label>
+                    <div>
+                        <th:block th:each="tipoPessoa : ${tiposPessoa}">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input th:id="|id_${tipoPessoa}|" class="custom-control-input  js-radio-tipo-pessoa" type="radio" th:field="*{tipoPessoa}" th:value="${tipoPessoa}" th:attr="data-documento=${tipoPessoa.documento}, data-mascara=${tipoPessoa.mascara}" th:errorclass="is-invalid"/>
+                                <label th:for="|id_${tipoPessoa}|" class="custom-control-label" th:text="${tipoPessoa.descricao}">Física</label>                        
+                            </div>
+                        </th:block>
+                        
+                    </div>
+                    
+                </div>
+                <div class="form-group col-sm-8">
+                    <label for="cpfOuCnpj" class="control-label">CPF/CNPJ</label>
+                    <input id="cpfOuCnpj" type="text" class="form-control" th:field="*{cpfOuCnpj}" disabled="disabled" th:errorclass="is-invalid" />
+                    <div class="invalid-feedback">
+                        <th:block th:each="erro : ${#fields.detailedErrors('cpfOuCnpj')}">
+                            <div><span th:text="${erro.message}"></span></div>
+                        </th:block>
+                    </div>
+                </div> 
+            </div>
+            
+            <div class="row mt-2">
+                <div class="col-sm-12">
+                    <button class="btn btn-dark mr-1" type="submit" >Enviar</button>
+                    <button class="btn btn-default" type="reset" >Cancelar</button>
+                </div>
+            </div>
+            
+
+        </form>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/vendors/uikit.min.js}"></script>
+    <script th:src="@{/js/vendors/upload.min.js}"></script>
+
+    <script th:src="@{/js/vendors/jquery.mask.min.js}"></script>
+    <script th:src="@{/js/usuario.upload-photo.js}"></script>
+    <script th:src="@{/js/usuario.mascara-cpf-cnpj.js}"></script>
+    <script>
+        $(function(){
+            $('.js-decimal').mask("#.##0,00", {reverse: true});
+            $('.phone_with_ddd').mask('(00) 00000-0000');
+            $('.cpf').mask('000.000.000-00', {reverse: true});
+            $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+            
+            let tipoUsuario = $('input[name="tipoUsuario"]');
+            tipoUsuario.on('change', function(event) {
+            	if(event.target.value === 'cliente') {
+            		$('#categoria').attr('disabled', 'disabled');
+            	} else {
+            		$('#categoria').removeAttr('disabled');
+            	}
+            });
+            
+        });
+    </script>
+</body>
+</html>

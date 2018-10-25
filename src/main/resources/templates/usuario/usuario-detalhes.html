@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title th:text="|${usuario.firstName} ${usuario.lastName}|">Username</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous" />
+    <link rel="stylesheet" th:href="@{/css/trabalhador-detalhes.css}" />
+	<link rel="stylesheet" th:href="@{/css/footer.css}" />
+	<link rel="stylesheet" th:href="@{/css/comentarios.css}" />
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" />
+</head>
+<body>
+    <th:block th:replace="fragments/navigation :: navbar"/>
+
+    <main class="container">
+        <div class="row mt-5">
+            <div class="avatar-box col-sm-3">
+                <img id="avatar" src="avatar-1.jpg" th:src="@{/fotos/temp/{foto}(foto=${usuario.fotoOuMock})}" alt="avatar" class="img-thumbnail"/>
+            </div>
+			<div class="col-sm-3">
+				<div class="dado p-2">
+					<h6>Nome</h6>
+					<h5 th:text="|${usuario.firstName} ${usuario.lastName}|">Emanuel Honorio</h5>
+				</div>
+				<div class="dado p-2" th:if="usuario.categoria.nome">
+					<h6>Categoria</h6>
+					<h5 th:text="${usuario.categoria.nome}">Programador</h5>
+				</div>
+
+			</div>
+			<div class="col-sm-6">
+				<div class="contato p-1">
+					<i class="fas fa-phone"></i>
+					<span class="mx-2" th:text="${usuario.telefone}">(83)987-313692</span>
+				</div>
+				<div class="contato p-1">
+					<i class="fas fa-at"></i>
+					<span class="mx-2" th:text="${usuario.email}">emanueljp@gmail.com</span>
+				</div>
+			</div>
+		</div>
+
+		<section class="coments-section" >
+
+			<div id="section-fazer-comentario">
+				<form th:action="@{/comentarios/{id}(id=${usuario.id})}" th:object="${comentario}" method="POST">
+					<div class="d-flex align-items-start">
+						<a href="#">
+							<img th:src="@{/fotos/temp/{foto}(foto=${usuarioLogado.fotoOuMock})}" class="avatar mr-2" alt="avatar" />
+						</a>
+						<div class="d-flex flex-column align-items-end col-sm-6 p-0">
+							<textarea th:field="*{mensagem}" class="form-control" placeholder="Poste um comentário" minlength="2" th:errorclass="is-invalid"></textarea>
+							<div class="invalid-feedback">
+								mensagem inválida
+							</div>
+							<button type="submit" class="btn btn-primary mt-1">Enviar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+ 	
+			<div id="section-comentarios">
+			
+				<!-- COMMMENT -->
+				<div class="d-flex py-2" th:each="comment : ${comentarios}">
+					<a th:href="@{/usuarios/{id}(id=${usuarioLogado.id})}">
+						<img th:src="@{/fotos/temp/{foto}(foto=${comment.remetente.fotoOuMock})}" class="avatar mr-2" alt="avatar" />
+					</a>
+					<div class="col-sm-10">
+						<a th:href="@{/usuarios/{id}(id=${usuarioLogado.id})}" class="nome-autor" th:text="|${comment.remetente.firstName} ${comment.remetente.lastName}|">Emanuel Honorio</a>
+						<p class="mb-1 mensagem" th:text="${comment.mensagem}">Muito bom trabalhado!</p>
+				
+					</div>
+				</div>
+				<!--.// COMMMENT -->
+			
+			</div>
+
+		</section>
+        
+	</main>
+
+	<th:block th:replace="fragments/footer :: footer"/>
+	
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

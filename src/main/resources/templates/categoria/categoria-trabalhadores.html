@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title th:text="${categoriaNome}">Categoria</title>
+	<!-- Bootstrap CSS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+	<script defer="" src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+	<link rel="stylesheet" th:href="@{/css/trabalhadores-categoria.css}" />
+	<link rel="stylesheet" th:href="@{/css/footer.css}" />
+</head>
+<body>
+	<!-- NAVIGATION BAR -->
+	<th:block th:replace="fragments/navigation :: navbar"/>
+	<div class="container">
+		<h2 class="my-3 h2">Profissionais disponíveis na sua região:</h2>
+		<th:block th:if="${#lists.isEmpty(usuarios)}">
+			<h6>Não há Profissionais disponíveis na sua região.</h6>
+		</th:block>
+		<ul class="list-group">
+			<li class="list-group-item" th:each="usuario : ${usuarios}">
+				<div class="avatar">
+					<a href="#"><img th:src="@{/fotos/temp/{foto}(foto=${usuario.fotoOuMock})}"/></a>
+				</div>
+				<div class="desc">
+					<a th:href="@{/usuarios/{id}(id=${usuario.id})}"><h5 th:text="|${usuario.firstName} ${usuario.lastName}|">Emanuel Honorio</h5></a>
+					<h6 th:text="${usuario.categoria.nome}">Programmer / Designer</h6>
+					<span><i class="fas fa-star" style="color: orange"></i></span>
+					<span><i class="fas fa-star" style="color: orange"></i></span>
+					<span><i class="fas fa-star" style="color: orange"></i></span>
+					<span><i class="fas fa-star" style="color: orange"></i></span>
+					<span><i class="fas fa-star-half" style="color: orange"></i></span>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<th:block th:replace="fragments/footer :: footer"/>
+</body>
+</html>

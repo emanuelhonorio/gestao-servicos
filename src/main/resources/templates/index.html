@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<title>UJOB</title>
+	<!-- Bootstrap CSS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous"/>
+	<script defer="" src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+	<link rel="stylesheet" th:href="@{/css/footer.css}" />
+	<link rel="stylesheet" href="style.css" th:href="@{/css/index.css}" />
+</head>
+<body>
+
+	<!-- NAVIGATION BAR -->
+	<th:block th:replace="fragments/navigation :: navbar"/>
+
+	<!-- HEADER BANNER -->
+	<div class="banner">
+		<div class="container">
+			<h1>What's Your Problem?</h1>
+			<form th:action="@{/categorias}" method="GET">
+				<div id="group" class="row">
+					<div class="col-sm-2"></div>
+					<div class="input-group col-md-8">
+						<input name="nome" type="search" class="form-control col-form-label col-form-label-lg" placeholder="Enter a category" />
+						<div class="input-group-append">
+							<button type="submit" class="input-group-text"><i class="fas fa-search"></i></button>
+						</div>
+					</div>
+				</div>
+			</form>	
+		</div>	
+	</div>
+	
+	<section id="como-funciona">
+		<div class="container">
+
+			<div class="h2">Como funciona</div>
+
+			<div class="row">
+				<div class="col-sm-4 text-center px-4">
+					<img th:src="@{./images/index/how-it-works-1.svg}" />
+					<h5 class="py-2">Publicar</h5>
+					<p>Conte-nos em poucas palavras o que você precisa. É grátis e sem compromisso!</p>
+				</div>
+				<div class="col-sm-4 text-center px-4">
+					<img th:src="@{./images/index/how-it-works-2.svg}" />
+					<h5 class="py-2">Selecionar</h5>
+					<p>Receba propostas de excelentes. Escolha o melhor para o seu projeto.</p>
+				</div>
+				<div class="col-sm-4 text-center px-4">
+					<img th:src="@{./images/index/how-it-works-3.svg}" />
+					<h5 class="py-2">Começar</h5>
+					<p>Você faz o pagamento com total garantia sobre o valor depositado e já começa a trabalhar :)</p>
+				</div>
+			</div>
+
+			<div class="btn-row mt-5">
+				<a href="#" th:href="@{/categorias}" class="botao u-bg-green m-2">Pesquise Um Serviço</a>
+				<a href="#" th:href="@{/register}" class="botao u-bg-blue m-2">Trabalhe conosco</a>
+			</div>
+			
+		</div>
+	</section>
+	
+	<th:block th:replace="fragments/footer :: footer" />
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+html {
+    position: relative!important;
+    min-height: 100%!important;
+}
+body {
+    margin: 0 0 150px!important; /* bottom = footer height */
+}
+footer{
+    position: absolute !important;
+    bottom: 0px !important;
+    right: 0px !important;
+    left: 0px !important;
+}

@@ -1,0 +1,76 @@
+/* COLORS */
+
+.u-bg-green{
+	background-color: #1fda9a;
+}
+.u-bg-blue{
+	background-color: #28abe3;
+}
+
+
+
+body{
+	background-color: #f1f1f1;
+}
+
+.banner{
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 70vh;
+	background: url("../images/index/banner.jpg");
+	background-size: cover;
+	background-position: center;
+}
+
+.banner h1{
+	color: white;
+	text-align: center;
+}
+
+.banner #group{
+	margin-top: 30px;
+}
+
+/* Como funciona */
+#como-funciona{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	color: dimgray;
+	background-color: #f1f1f1;
+	/* overflow: hidden; */
+}
+
+#como-funciona img{
+	height: 100px;
+	
+}
+
+.btn-row{
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.botao{
+	text-decoration: none;
+	color: #fff;
+	display: inline-block;
+	padding: 12px 25px;
+	border-radius: 5px;
+}
+
+.botao:hover{
+	color: #fff;
+	text-decoration: none;
+	opacity: .7;
+}
+
+#como-funciona .h2{
+	color: #444;
+	text-align: center;
+	margin-bottom: 50px;
+	font-size: 1.8em;
+}
